@@ -1,0 +1,275 @@
+body {
+      background-color: #8A70D6; /* Violet (JTC) for the overall background */
+      color: #feffff; /* Platinum for text */
+      margin-left: 210px; 
+  }
+
+  .side_box_align{
+    display: flex; /* Use flexbox layout */
+    align-items: flex-end; /* Align items to the bottom */
+    height: 100vh; /* Full viewport height */
+  }
+
+.welcome_box {
+    flex: 1; /* Allow the box to take the remaining space */
+    background-color: #fafafa; /*Light background color*/
+    padding: 20px; /* Inner padding */
+    border-radius: 20px 0 0 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Shadow effect */
+    margin-left: 60px;
+    width:auto;
+    height: 100vh;
+    top: 20px;
+}
+
+ /* The sidebar menu */
+ .sidenav {
+  width: 250px; /* Set the width of the sidebar */
+  position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 30px;
+  border-radius: 15px; /* Curved edges */
+  margin-left: 10px; /* Adjust this value to move the sidebar to the right */
+  height: 100vh; /* Full viewport height */
+  }
+
+  .logo_title{
+    font-size: 30pt; 
+    color: #f1f1f1; 
+    text-align: center; 
+    font-weight: bold; 
+    margin-bottom: 50px;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f1f1f1;
+  display: block;
+  margin-bottom: 50px;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+  color: #5D1F93;
+  background-color: #e9e3ff;
+  border-radius: 5pt;
+  }
+  
+  .sprint_overview {
+    text-decoration: none;
+  }
+
+  .project_progress {
+    text-decoration: none;
+  }
+
+  /* Style page content */
+  .main {
+  margin-top: 10px;  
+  margin-left: 30px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+  }
+
+  .dashboard_message{
+    color: #5D1F93;
+    text-align: left;
+    margin-top: 40px; 
+    font-size: 50pt;
+  }
+
+  .welcome_message{
+    color: #5D1F93;
+    text-align: left;
+    margin-top: 10px;
+    font-size: 25pt;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+
+  .accessibility_label{
+    color: #f1f1f1;
+    text-align: center;
+    font-size: 25px;
+  }
+
+  .accessibility_ts_label{
+    color: #f1f1f1;
+    text-align: center;
+    font-size: 25px;
+  }
+
+.custom-slider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 250px; /* Adjust the width as needed */
+    height: 8px; /* Height of the track */
+    background:#E9E3FF; /* Background color of the track */
+    border-radius: 5px;
+    outline: none; /* Remove outline */
+}
+
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default thumb styling */
+    appearance: none;
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    border-radius: 50%; /* Make it round */
+    background: #5D1F93; /* Color of the thumb */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+}
+
+.small_font{
+    font-size: small;
+}
+
+.big_font{
+    font-size: large;
+    margin-left: 220px;
+}
+
+.cards_container_1 {
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Center cards within the container */
+    gap: 20px; /* Space between the cards */
+    margin-top: 40px; /* Space above the card container */
+}
+
+.random_card_1 {
+    border-color: #5D1F93;
+    border-style: solid;
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    height: 350px; /* Fixed height */
+    flex: 1; /* Flex growth to occupy equal space */
+    text-align: center; /* Center the card content */
+    overflow: hidden;
+}
+
+.random_card_1:hover {
+    background-color: #e9e3ff;
+    overflow-y: auto;
+}
+
+.random_card_2 {
+    border-color: #5D1F93;
+    border-style: solid; 
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    height: 350px; 
+    flex: 1; /* Flex growth to occupy equal space */
+    text-align: center; /* Center the card content */
+    max-height: 350px; 
+    overflow: hidden;
+}
+
+.random_card_2:hover {
+    background-color: #e9e3ff;
+    overflow-y: auto;  /* Enable vertical scrolling */
+}
+
+.cards_container_2 {
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Center cards within the container */
+    gap: 20px; /* Space between the cards */
+    margin-top: 40px; /* Space above the card container */
+}
+
+.random_card_3 {
+    border-color: #5D1F93;
+    border-style: solid;
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    height: 200px; /* Fixed height */
+    flex: 1; /* Flex growth to occupy equal space */
+    text-align: center; /* Center the card content */
+    transition: background-color 0.3s ease;
+}
+
+.random_card_3:hover {
+    background-color: #e9e3ff;
+}
+
+.random_card_4 {
+    border-color: #5D1F93;
+    border-style: solid;
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    height: 200px; 
+    flex: 1; /* Flex growth to occupy equal space */
+    text-align: center; /* Center the card content */
+}
+
+.random_card_4:hover {
+    background-color: #e9e3ff;
+}
+
+.random_card_5 {
+    border-color: #5D1F93;
+    border-style: solid;
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    height: 200px; 
+    flex: 1; /* Flex growth to occupy equal space */
+    text-align: center; /* Center the card content */
+    position: relative; 
+}
+
+.random_card_5:hover {
+    background-color: #e9e3ff;
+}
+
+canvas {
+    width: 100%; 
+    height: auto;
+    max-height: 115px;
+}
+
+.card_heading{
+    text-align: left;
+    padding: 10px;
+    font-size: 15pt;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #5D1F93;
+    margin-bottom: 2px;
+}
+
+.task_completed{
+    text-align: center;
+    font-size: 50pt;
+    font-family: Arial, Helvetica, sans-serif;
+    color:#8A70D6;
+    margin-top: 2px;
+}
+
+.past_future{
+    color: silver;
+}
+
+.calendar{
+    border: #fafafa;
+}
+
+.calendar:hover{
+    border: #e9e3ff;
+}
+
+.calendar_day{
+    color: #8A70D6;
+    font-weight: bold;
+}

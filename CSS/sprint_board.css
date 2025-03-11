@@ -1,0 +1,374 @@
+body {
+  background-color: #8A70D6;
+  color: #feffff; /* Platinum for text */   
+  margin-left: 210px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.side_box_align{
+  display: flex; /* Use flexbox layout */
+  align-items: flex-end;
+  height: 100vh; /* Full viewport height */
+}
+
+.welcome_box {
+  flex: 1; /* Allow the box to take the remaining space */
+  background-color: #fafafa; /*Light background color*/
+  padding: 20px; /* Inner padding */
+  border-radius: 20px 0 0 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Shadow effect */
+  margin-left: 60px;
+  height: 100vh;
+  top: 20px;
+  overflow-y: auto;
+}
+
+.empty_button{
+  background-color: #8A70D6;
+  height: 49.5px;
+}
+    
+/* The sidebar menu */
+.sidenav {
+  width: 250px; /* Set the width of the sidebar */
+  position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 30px;
+  border-radius: 15px; /* Curved edges */
+  margin-left: 10px; /* Adjust this value to move the sidebar to the right */
+  height: 100vh; /* Full viewport height */
+  }
+
+  .logo_title{
+    font-size: 30pt; 
+    color: #f1f1f1; 
+    text-align: center; 
+    font-weight: bold; 
+    margin-bottom: 50px;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f1f1f1;
+  display: block;
+  margin-bottom: 50px;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+  color: #5D1F93;
+  background-color: #e9e3ff;
+  border-radius: 5pt;
+  }
+
+.accessibility_label{
+  color: #f1f1f1;
+  text-align: center;
+  font-size: 25px;
+  }
+
+  .accessibility_ts_label{
+  color: #f1f1f1;
+  text-align: center;
+  font-size: 25px;
+  }
+
+.custom-slider {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  width: 250px; /* Adjust the width as needed */
+  height: 8px; /* Height of the track */
+  background:#E9E3FF; /* Background color of the track */
+  border-radius: 5px;
+  outline: none; /* Remove outline */
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default thumb styling */
+  appearance: none;
+  width: 20px; /* Width of the thumb */
+  height: 20px; /* Height of the thumb */
+  border-radius: 50%; /* Make it round */
+  background: #5D1F93; /* Color of the thumb */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+}
+
+.small_font{
+  font-size: small;
+}
+
+.big_font{
+  font-size: large;
+  margin-left: 220px;
+}
+
+
+.heading_message{
+  color: #5D1F93;
+  text-align: left;
+  margin-top: 40px; 
+  font-size: 50pt;
+  margin-bottom: 20px;
+  }
+
+  .sprint_dropdown_style{
+    border-radius: 5px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: #8A70D6;
+    width:100px;
+    height:30px;
+    text-align: center;
+  }
+  
+  .sprint_dropdown_style:hover{
+    background-color: #E9E3FF;
+  }
+
+  .card_heading{
+    text-align: left;
+    font-size: 15pt;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #5D1F93;
+    margin-bottom: 2px;
+}
+
+.dropdown{
+  margin-bottom: 10px;
+}
+
+.sprint_actions{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex; 
+  justify-content: left; 
+}
+
+.button_style {
+  color: #8A70D6;
+  border-color: #8A70D6;
+  border-style: solid;
+  padding: 10px;
+  border-width: 1.5px;
+  width: 150px;
+  height:50px; 
+  text-align: center;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #feffff;
+}
+
+.button_style:hover {
+background-color: #E9E3FF;
+color: #8A70D6;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+
+}
+
+.column {
+  flex: 1;
+  min-width: 300px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  max-height: 500px;
+  background-color: #E9E3FF;
+}
+
+/* Columns titles */
+.column h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #5D1F93;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* Animation and hover for columns */
+.column:hover {
+  transform: scale(1.05);
+}
+
+/* Cards */
+.task-card {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: move;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.6s forwards;
+}
+
+/* card text */
+.task-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: #000000;
+}
+
+.task-card p strong {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+  }
+}
+
+.task-card:hover {
+  background-color: #f7f9f9;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.task-card:active {
+  transform: scale(1.02);
+}
+
+/* Scroll */
+.column::-webkit-scrollbar {
+  width: 8px;
+}
+
+.column::-webkit-scrollbar-thumb {
+  background-color: #bdc3c7;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .row {
+      flex-direction: column;
+  }
+
+  .column {
+      margin-bottom: 20px;
+  }
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #ffffff;
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 600px;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(-20px);
+      opacity: 0;
+  }
+
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: #5d1f93;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.modal-body {
+  font-size: 1rem;
+  color: #2c3e50;
+  line-height: 1.5;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.card {
+top: -30px;
+background-color: #ffffff; /* Night for the form (darkest color) */
+border-color: #abaaad;
+border-width: 2px;
+border-radius: 15px; /* Curved edges */
+
+box-shadow: 0 0 5px rgba(121, 121, 121, 0.8);
+}
+
+label {
+color: #501969; /* Platinum for text contrast */
+}
+
+.form-control {
+background-color: #eeeeee; /* Mountbatten Pink for inputs (lightest color) */
+color: #120111; /* Night for input text */
+border-color: #25246d;
+border-width: 1.5px;
+}
+.form-control::placeholder {
+color: #463f52; /* Night placeholder text */
+}
+.form-control:focus {
+background-color: #f1f1ff; /* French Gray for focused inputs */
+color: #463f52; /* Night for input text on focus */
+outline: none;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.9); /* Stronger drop shadow effect */
+}
+
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+
+   

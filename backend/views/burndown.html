@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Adding meta data -->
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="burndown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    </head>
+
+    <!-- Adding script for chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+
+    <body>
+
+        <div class="side_box_align">
+            <div class="sidenav">
+                <p class="logo_title">Dex Studios</p>
+                <a href="/dashboard"> <i class="bi bi-grid"></i> Dashboard</a>
+                <a href="/product"> <i class="bi bi-list-columns-reverse"></i> Product Backlog</a>
+                <a href = "/sprint_board"> <i class="bi bi-card-heading"></i> Sprint Board</a>      
+                <p class="empty_button"></p> 
+                <hr>
+                <a href="/" > <i class="bi bi-box-arrow-left"></i> Logout</a>
+                <br><br>
+                
+                <div>
+                    <h4 class="accessibility_ts_label">Change Text Size</h4>
+                    <input type="range" min="10" max="50" id="slider" value="30" class="custom-slider" onchange="fontResize()">
+                    <label class="small_font">A</label>
+                    <label class="big_font">A</label>
+                </div>
+              </div>
+            
+              <div class="welcome_box">
+                <h1 class="resize heading_message">Sprint <%= selectedSprint %> Burndown Chart</h1>
+
+                <button class="btn button_style" onclick="popup()"><i class="bi bi-graph-down"></i> Burndown Chart</button>  
+
+                <div id="burndown" class="burndown_chart resize">
+                    <!-- Cavnas -->
+                    <canvas id="burndownChart" class="burndown_canvas"></canvas>
+                </div>
+            </div>
+    </div>
+            
+                <script>
+                    const dataPoints = JSON.parse('<%- dataPoints %>');  // Actual burndown data
+                    const idealDataPoints = JSON.parse('<%- idealDataPoints %>');  // Ideal burndown data
+                    const selectedSprint = '<%= selectedSprint %>';
+                    const totalStoryPoints = '<%= totalStoryPoints %>';
+                    const formattedStartDate = '<%= formattedStartDate %>';
+                    const formattedEndDate = '<%= formattedEndDate %>';
+        
+                    // Use the ideal burndown data to set the x-axis labels 
+                    let labels = idealDataPoints.map(point => point.date); // Dates on the x-axis
+        
+                    let actualDataMap = new Map(dataPoints.map(point => [point.date, point.storypoint]));
+        
+                    let actualData = labels.map(date => actualDataMap.has(date) ? actualDataMap.get(date) : null);
+        
+                    actualData[0] = totalStoryPoints;
+        
+                    // Ideal burndown data
+                    let idealData = idealDataPoints.map(point => point.storypoint);
+        
+                    // Set up the Chart.js line chart
+                    var ctx = document.getElementById('burndownChart').getContext('2d');
+                    var burndownChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels, 
+                            datasets: [
+                                {
+                                    label: 'Remaining Story Points',
+                                    data: actualData, 
+                                    fill: false, 
+                                    borderColor: 'rgba(138, 112, 214, 1)', 
+                                    tension: 0.1,
+                                    spanGaps: true
+                                },
+                                {
+                                    label: 'Ideal Story Points Remaining',
+                                    data: idealData,  
+                                    fill: false, 
+                                    borderColor: 'rgba(233, 227, 255, 1)', 
+                                    tension: 0.1,
+                                    spanGaps: true 
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Date' // Label for the x-axis
+                                    },
+                                    suggestedMin: formattedStartDate,
+                                    suggestedMax: formattedEndDate
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Story Points' // Label for the y-axis
+                                    },
+                                    suggestedMin: 0, // Set the minimum value of the y-axis
+                                    suggestedMax: totalStoryPoints // Set the maximum value of the y-axis to total story points
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true
+                                }
+                            }
+                        }
+                    });
+        
+                    function popup() {
+                        document.getElementById("burndown").style.display = "block";
+                    }
+
+                    function fontResize() {
+        var toSet = document.getElementById("slider").value + 'px';
+        for (var i = 0; i < collection.length; i++) {
+            collection[i].style.fontSize = document.getElementById("slider").value + 'px';
+        }
+    }
+
+               
+                </script>
+    </body>
+</html>

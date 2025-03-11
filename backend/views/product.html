@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Backlog</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/product.css" />
+    
+    <script>
+        // onRowClick function to see task details on click
+        // goes to the task details page
+        var table = document.getElementById("table");
+        if (table) {
+        for (var i = 0; i < table.rows.length; i++) {
+            table.rows[i].onclick = function() {
+            onRowClick(this);
+            };
+        }
+        }
+
+        function onRowClick(tableRow) {
+        var taskId = tableRow.childNodes[1].innerHTML;
+        console.log(taskId);
+        window.location.href = 'http://localhost:3000/tasks/details?id=' + taskId;
+        }
+
+        const collection = document.getElementsByClassName("resize");
+
+        function fontResize() {
+            var toSet = document.getElementById("slider").value + 'px';
+            for (var i = 0; i < collection.length; i++) {
+                collection[i].style.fontSize = document.getElementById("slider").value + 'px';
+            }
+        }
+    </script>
+</head>
+<body>    
+    <div class="side_box_align">
+        <div class="sidenav">
+            <p class="logo_title">Dex Studios</p>
+            <a href="/dashboard"> <i class="bi bi-grid"></i> Dashboard</a>
+            <a href="/product"> <i class="bi bi-list-columns-reverse"></i> Product Backlog</a>
+            <a href = "/sprint_board"> <i class="bi bi-card-heading"></i> Sprint Board</a>      
+            <p class="empty_button"></p> 
+            <hr>
+            <a href="/" > <i class="bi bi-box-arrow-left"></i> Logout</a>
+            <br><br>
+            
+            <div>
+                <h4 class="accessibility_ts_label">Change Text Size</h4>
+                <input type="range" min="10" max="50" id="slider" value="30" class="custom-slider" onchange="fontResize()">
+                <label class="small_font">A</label>
+                <label class="big_font">A</label>
+            </div>
+        </div>
+
+        <div class="welcome_box resize">
+            <h1 class="resize heading_message">Product Backlog</h1>
+
+            <div class="search_container my-3">
+                <form method="GET" action="/product" id="searchForm">
+                    <input type="text" id="searchInput" name="search" class="form-control" placeholder="Search for tasks...">
+                </form>
+            </div>
+
+            <div class="button_alignment">
+            <button type="button" class="btn button_style resize" data-bs-toggle="modal" data-bs-target="#addTaskModal">+ Add Task</button>
+            <button type="submit" class="btn button_style resize" data-bs-toggle="tooltip" title="Search for tasks"><i class="bi bi-search"></i> Search</button>
+            </div>
+
+            <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addTaskModalLabel">Create Task</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/submit_task" method="POST">
+                                    <label class="form_instructions" >Fields with * is mandatory</label> 
+                                    <!-- Task Name Input -->
+                                    <div class="form-group">
+                                        
+                                        <label for="task_name" class="form-label"><i class="bi bi-list-task"></i> Task Name:<label class="star">*</label></label>
+                                        <input class="form-control form-control-sm resize" type="text" id="task_name" name="task_name" placeholder="Enter the task details" required>
+                                    </div>
+                
+                                    <!-- Task Type Dropdown -->
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_type"><i class="bi bi-tag"></i> Task Type (Tag):<label class="star">*</label></label>
+                                        <select class="form-control form-control-sm resize" id="task_type" name="task_type" required>
+                                            <option value="frontend">Frontend</option>
+                                            <option value="backend">Backend</option>
+                                            <option value="bugfix">Testing</option>
+                                        </select>
+                                    </div>
+                
+                                    <!-- Person (Member) Dropdown -->
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_assignee"><i class="bi bi-person"></i> Assignee:</label>
+                                        <select class="form-control form-control-sm resize" id="task_assignee" name="task_assignee">
+                                            <% users.forEach(user => { %>
+                                                <option value="<%= user.user_name %>"><%= user.user_name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                
+                                    <!-- Description Input -->
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_desc"><i class="bi bi-body-text"></i> Description: <label class="star">*</label></label>
+                                        <textarea class="form-control form-control-sm resize" id="task_desc" name="task_desc" rows="4" placeholder="Enter a description" required></textarea>
+                                    </div>
+                
+                                    <!-- Date Picker -->
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_date"><i class="bi bi-calendar-date"></i> End Date:</label>
+                                        <input class="form-control form-control-sm resize" type="date" id="task_date" name="task_date">
+                                    </div>
+                
+                                        <!-- Status Dropdown -->
+                                        <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_status"><i class="bi bi-check2-square"></i> Status:<label class="star">*</label></label>
+                                        <select class="form-control form-control-sm resize" id="task_status" name="task_status" required>
+                                            <option value="To Do">To Do</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                        </div>
+                
+                                    <!-- Priority Input -->
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_priority"><i class="bi bi-award-fill"></i> Priority:<label class="star">*</label></label>
+                                            <select class="form-control form-control-sm resize" id="task_priority" name="task_priority" required>
+                                                <option value="High">High</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Low">Low</option>
+                                            </select>
+                                    </div>
+                
+                                    <!-- Story Points Input -->
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" for="task_storypoint"><i class="bi bi-0-circle"></i> Story Points:<label class="star">*</label></label>
+                                        <input class="form-control form-control-sm resize" type="number" id="task_storypoint" name="task_storypoint" min="1" max="5" placeholder="1 - 5" required>
+                                    </div>
+                
+                                    <!-- Assign to Sprint -->
+                                    <div class="form-group">
+                                       
+                                        <label class="form-label" for="sprint_no"> <i class="bi bi-123"></i> Assign Sprint No:</label>
+                                        <select class="form-control form-control-sm resize" id="sprint_no" name="sprint_no" >
+                                            <% sprints.forEach(sprint => { %>
+                                                <option value="<%= sprint.sprint_no %>"><%= sprint.sprint_no %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>           
+
+                                    <!-- Log Hours-->
+                                    <div class="form-group">
+                                        <label class="form-label" for="log_hours"> <i class="bi bi-clock"></i> Log Hours</label>
+                                        <label class="hour_instructions">Can only log whole hour timeblocks</label>
+                                        <input class="form-control form-control-sm resize" type="number" id="log_hours" min="1" name="log_hours" placeholder="1  hour" ></textarea>
+                                      </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn button_style resize" data-bs-dismiss="modal">Close</button>
+                                    <button class="btn button_style resize" type="submit">Save Task</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="container table table-hover" id="table">
+                <thead class="thead-light">
+                    <tr class="resize">
+                        <th scope="col">Task ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Assignee</th>
+                        <th scopt="col">Sprint</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Story Points</th>
+                        <th scope="col">Logged Hours</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="resize">
+                    <tr>
+                    <% for (let i = 0; i < records.length; i++) { %>
+                        <tr onclick="onRowClick('<%= records[i].task_no %>')" data-bs-toggle="tooltip" title="Click on task to view details">
+                            <td><%= records[i].task_no %></td>
+                            <td style="width:30%"><%= records[i].task_name %></td>
+                            <td><%= records[i].task_date.toLocaleString() %></td> 
+                            <td><%= records[i].task_type %></td>
+                            <td><%= records[i].task_assignee %></td>
+                            <td><%= records[i].sprint_no %></td>
+                            <td><%= records[i].task_status %></td>
+                            <td><%= records[i].task_priority %></td>
+                            <td style="width:5%"><%= records[i].task_storypoint %></td>
+                            <td> <%= records[i].log_hours %></td>
+                            
+                            <td>
+                                <form action="/delete_task" method="POST" class="action_buttons">
+                                    <input type="hidden" name="task_no" value="<%= records[i].task_no %>" />
+                                    <button type="submit" class="btn delete_button_style resize" data-bs-toggle="tooltip" title="Delete Task"><i class="bi bi-trash"></i></button>  
+                                    <a href="/tasks/update_task?id=<%= records[i].task_no %>" class="btn update_button_style resize" data-bs-toggle="tooltip" title="Update Task"><i class="bi bi-arrow-repeat"></i></a>
+                                </form>
+                                
+                        
+                            </td>
+                        </tr>
+                    <% }; %>
+                </tbody>
+            </table>
+
+            <div
+            class="modal fade"
+            id="taskModal"
+            tabindex="-1"
+            aria-labelledby="taskModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="taskModalLabel"><span id="modalTaskName"></span></h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <strong>Task ID:</strong>
+                    <span id="modalTaskNo"></span>
+                  </div>
+                  <div>
+                    <strong>In Sprint:</strong>
+                    <span id="modalSprintNo"></span>
+                  </div>
+                  <div>
+                    <strong>Task Due Date:</strong>
+                    <span id="modalTaskDueDate"></span>
+                  </div>
+                  <div>
+                    <strong>Task Type:</strong>
+                    <span id="modalTaskType"></span>
+                  </div>
+                  <div>
+                    <strong>Task Assignee:</strong>
+                    <span id="modalTaskAssignee"></span>
+                  </div>
+                  <div>
+                    <strong>Task Status:</strong>
+                    <span id="modalTaskStatus"></span>
+                  </div>
+                  <div>
+                    <strong>Task Priority:</strong>
+                    <span id="modalTaskPriority"></span>
+                  </div>
+                  <div>
+                    <strong>Story Points:</strong>
+                    <span id="modalTaskStoryPoint"></span>
+                  </div>
+                  <div>
+                    <strong>Hours Logged:</strong>
+                    <span id="modalLogHours"></span>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn button_style"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <footer class="footer">
+            <p>© 2024 Dex Studios, All rights reserved</p>
+          </footer>
+        </div>
+    </div>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- javascript for tooltips-->
+    <script>
+        $(document).ready(function(){
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+
+        function onRowClick(taskNo) {
+        fetch(`/tasks/details?id=${taskNo}`)
+          .then((response) => response.json())
+          .then((task) => {
+            document.getElementById("modalTaskNo").textContent = task.task_no;
+            document.getElementById("modalTaskName").textContent = task.task_name;
+            document.getElementById("modalTaskDueDate").textContent = task.task_date.toLocaleString();
+            document.getElementById("modalTaskType").textContent = task.task_type;
+            document.getElementById("modalTaskAssignee").textContent = task.task_assignee;
+            document.getElementById("modalSprintNo").textContent = task.sprint_no;
+            document.getElementById("modalTaskStatus").textContent = task.task_status;
+            document.getElementById("modalTaskPriority").textContent = task.task_priority;
+            document.getElementById("modalTaskStoryPoint").textContent = task.task_storypoint;
+            document.getElementById("modalLogHours").textContent = task.log_hours;
+            var taskModal = new bootstrap.Modal(
+              document.getElementById("taskModal")
+            );
+            taskModal.show();
+          })
+          .catch((err) => console.error(err));
+      }
+    </script>
+</body>
+</html>

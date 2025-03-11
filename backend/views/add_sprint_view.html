@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Sprint</title>
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/add_sprint_view.css" />
+  
+
+    <script>
+        const collection = document.getElementsByClassName("resize");
+
+        function fontResize() {
+            var toSet = document.getElementById("slider").value + 'px';
+            for (var i = 0; i < collection.length; i++) {
+                collection[i].style.fontSize = document.getElementById("slider").value + 'px';
+            }
+        }  
+    </script>
+
+</head>
+<body>
+    <div class="side_box_align">
+        <div class="sidenav">
+            <p class="logo_title">Dex Studios</p>
+            <a href="/dashboard"> <i class="bi bi-grid"></i> Dashboard</a>
+            <a href="/product"> <i class="bi bi-list-columns-reverse"></i> Product Backlog</a>
+            <a href = "/sprint_board"> <i class="bi bi-card-heading"></i> Sprint Board</a>      
+            <p class="empty_button"></p> 
+            <hr>
+            <a href="/" > <i class="bi bi-box-arrow-left"></i> Logout</a>
+            <br><br>
+            
+            <div>
+                <h4 class="accessibility_ts_label">Change Text Size</h4>
+                <input type="range" min="10" max="50" id="slider" value="30" class="custom-slider" onchange="fontResize()">
+                <label class="small_font">A</label>
+                <label class="big_font">A</label>
+            </div>
+        </div>
+
+        <div class="welcome_box container mt-5 resize">
+            <h1 class="resize heading_message">Add New Sprint</h1>
+
+            <form action="/add_sprint" method="POST">                
+                <div class="container resize">
+                    <!-- Sprint Number Input -->
+                    <div class="form-group">
+                        <label for="sprint_no" class="form-label"><i class="bi bi-123"></i> Sprint Number:<label class="star">*</label></label>
+                        <input class="form-control form-control-sm resize" type="number" id="sprint_number" name="sprint_number" placeholder="Enter new sprint number" required>
+
+                    <!-- Sprint Name Input -->
+                    <div class="form-group">
+                        <label for="sprint_name" class="form-label"><i class="bi bi-type"></i> Sprint Name:<label class="star">*</label></label>
+                        <input class="form-control form-control-sm resize" type="text" id="sprint_name" name="sprint_name" placeholder="Enter new sprint name" required>    
+                    </div>
+
+                    <!-- Sprint Goal Input -->
+                    <div class="form-group">
+                        <label for="sprint_goal" class="form-label"><i class="bi bi-text-paragraph"></i> Sprint Goal:<label class="star">*</label></label>
+                        <input class="form-control form-control-sm resize" type="text" id="sprint_goal" name="sprint_goal" placeholder="Enter new sprint goal" required>    
+                    </div>
+            
+                    <!-- Sprint Start Input -->
+                    <div class="form-group"></div>
+                        <label for="sprint_start" class="form-label"><i class="bi bi-calendar-check"></i> Sprint Start:<label class="star">*</label></label>
+                        <input class="form-control form-control-sm resize" type="date" id="sprint_start" name="sprint_start" required>
+                     </div>
+
+                    <!-- Sprint End Input --> 
+                     <div class="form-group">
+                        <label for="sprint_end" class="form-label"><i class="bi bi-calendar-x"></i> Sprint End:<label class="star">*</label></label>
+                        <input class="form-control form-control-sm resize" type="date" id="sprint_end" name="sprint_end" required>
+                        </div>
+                    
+                    <!-- Sprint Status Input-->
+                    <div class="form-group">
+                        <label for="sprint_status" class="form-label"><i class="bi bi-check2-square"></i> Sprint Status:<label class="star">*</label></label>
+                        <select class="form-control form-control-sm resize" id="sprint_status" name="sprint_status" required>
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    <br>
+
+                    <button class="btn button_style resize" type="submit_sprint" >Save</button>
+                </div>
+
+                <br>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+body {
+    background-color: #ECE0F5; /* Violet (JTC) for the overall background */
+    color: #E6EAE9; /* Platinum for text */
+    
+}
+.card {
+    top : -30px;
+    background-color: #ffffff; /* Night for the form (darkest color) */
+    border-color: #abaaad;
+    border-width: 2px;
+    border-radius: 15px; /* Curved edges */
+    
+    box-shadow: 0 0 5px rgba(121, 121, 121, 0.8);
+}
+label {
+    color: #501969; /* Platinum for text contrast */
+}
+.form-control {
+    background-color: #eeeeee; /* Mountbatten Pink for inputs (lightest color) */
+    color: #120111; /* Night for input text */
+    border-color: #25246d;
+    border-width: 1.5px;
+
+}
+.form-control::placeholder {
+    color: #463f52; /* Night placeholder text */ 
+}
+.form-control:focus {
+    background-color: #f1f1ff; /* French Gray for focused inputs */
+    color: #463f52; /* Night for input text on focus */
+    outline: none;  
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.9); /* Stronger drop shadow effect */
+}
+.btn-primary {
+    background-color: #7868ba; /* Mountbatten Pink for buttons */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.9); /* Stronger drop shadow effect */
+    color: #d7d7d8; /* Night for text */
+    border-color: #434581;
+    
+}
+.btn-success {
+    background-color: #6d69bb; /* Platinum */
+    color: #d8d7d8; /* Night for text */
+    border-color: #1d5346;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Stronger drop shadow effect */
+    
+}
+.btn-primary:hover, .btn-success:hover {
+    opacity: 0.85;
+}
+
+   /* The sidebar menu */
+   .sidenav {
+   width: 200px; /* Set the width of the sidebar */
+   position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+   z-index: 1; /* Stay on top */
+   top: 0; /* Stay at the top */
+   left: 0;
+   background-color: #DEC1FA; /* Black */
+   overflow-x: hidden; /* Disable horizontal scroll */
+   padding-top: 30px;
+   border-radius: 15px; /* Curved edges */
+   margin-left: 10px; /* Adjust this value to move the sidebar to the right */
+   top: 20px; /* Stay at the top */
+   height: 75vh; /* Full viewport height */
+   border-color: #8c4e99f0;
+   border-width: 2px;
+   border-style: solid;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+   }
+
+   /* The navigation menu links */
+   .sidenav a {
+   padding: 6px 8px 6px 16px;
+   text-decoration: none;
+   font-size: 25px;
+   color: #f1f1f1;
+   display: block;
+   }
+
+   .sidenav h4 {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    color: #f1f1f1;
+    display: block;
+    }
+
+    .sidenav div {
+    padding: 6px 8px 6px 30px;
+    }
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #8981be;
+}
+body {
+    
+    margin-left: 210px; /* Adjust this value to match the width of the sidebar */
+}
+/* Style page content */
+.main {
+margin-top: 10px;  
+margin-left: 30px; /* Same as the width of the sidebar */
+padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+        
+h2  {
+    color: #6956f6
+
+}
+h1 {
+    color: #e6e4e4;
+    text-align: center;
+}
+
+h3 {
+        color: #efefef;
+        text-align: center;
+    }

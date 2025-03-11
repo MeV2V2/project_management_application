@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <a class="btn btn-primary" href="/product">To Product Backlog</a>
+        <p>
+            task number: <%= task.task_no %><br>
+            task name: <%= task.task_name %><br>
+            task type: <%= task.task_type %><br>
+            task assginee: <%= task.task_assignee %><br>
+            task description: <%= task.task_desc %><br>
+            task due date: <%= task.task_date.toLocaleString() %><br>
+            task status: <%= task.task_status %><br>
+            task priority: <%= task.task_priority %><br>
+            task story point: <%= task.task_storypoint %><br>
+            task is in sprint: <%= task.sprint_no %><br>
+        </p>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>

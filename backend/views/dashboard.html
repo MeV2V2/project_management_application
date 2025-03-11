@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/dashboard.css" />
+
+
+  <script>
+    const collection = document.getElementsByClassName("resize");
+
+    function fontResize() {
+      var toSet = document.getElementById("slider").value + 'px';
+        for (var i = 0; i < collection.length; i++) {
+          collection[i].style.fontSize = document.getElementById("slider").value + 'px';
+      }
+    }
+  </script>
+    <title>Dashboard</title>
+  </head>
+  <body>
+
+  <div class="side_box_align">
+  <div class="sidenav">
+      <p class="logo_title">Dex Studios</p>
+      <a href="/dashboard"> <i class="bi bi-grid"></i> Dashboard</a>
+      <a href="/product"> <i class="bi bi-list-columns-reverse"></i> Product Backlog</a>
+      <a href = "/sprint_board"> <i class="bi bi-card-heading"></i> Sprint Board</a>
+      <% if (isAdmin) { %>
+        <a href="/users"><i class="bi bi-people"></i> View all users</a>
+      <% } %>
+
+      <% if (isTeamMember) { %>
+        <a href="/settings" ><i class="bi bi-gear"></i> Account Settings</a>
+        <% } %>     
+        
+      <hr>
+
+      <a href="/logout" > <i class="bi bi-box-arrow-left"></i> Logout</a>
+      <br><br>
+      
+      <div>
+        <h4 class="accessibility_ts_label">Change Text Size</h4>
+        <input type="range" min="10" max="50" id="slider" value="30" class="custom-slider" onchange="fontResize()">
+        <label class="small_font">A</label>
+        <label class="big_font">A</label>
+      </div>
+
+      
+  </div>
+
+  <div class="welcome_box container mt-5 resize">
+    <h1 class="resize dashboard_message">Dashboard </h1>
+    <h1 class="resize welcome_message"> Welcome, <%= user_name %>!</h1> 
+    
+    <div class="cards_container_2"> 
+      <div class="random_card_3">
+        <p class="card_heading"> <i class="bi bi-check2-square"></i> Total Tasks Completed</p>
+        <p class="task_completed"><%= completedTasksCount %></p>
+      </div>
+  
+      <div class="random_card_4">
+        <p class="card_heading"><i class="bi bi-currency-dollar"></i> Budget Utilization Percentage</p>
+        <p class="task_completed">46%</p>
+      </div>
+
+      <a class="project_progress" href="/product">
+        <div class="random_card_5">
+          <p class="card_heading"> <i class="bi bi-lightbulb"></i> Project Progress</p>
+          <canvas id="myChart"></canvas>
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <script>
+              var xValues = ["Projects Started", "Projects Not Started"];
+              var yValues = [1, 20];
+              var barColors = [
+                  "#8A70D6",
+                  "#F1F1F1"
+              ];
+        
+              new Chart("myChart", {
+                  type: "doughnut",
+                  data: {
+                      labels: xValues,
+                      datasets: [{
+                          backgroundColor: barColors,
+                          data: yValues
+                      }]
+                  },
+                  options: {
+                      plugins: {
+                          legend: {
+                              display: false // Ensure the legend is hidden
+                          },
+                          tooltip: {
+                              enabled: true
+                          }
+                      },
+                      responsive: true,
+                      maintainAspectRatio: false
+                  }
+              });
+          </script>
+        </div>
+      </a>
+  </div>
+
+    <div class="cards_container_1"> 
+      <div class="random_card_1">
+        <p class="card_heading"><i class="bi bi-calendar"></i> October</p>
+        <table class="table table-bordered calendar">
+          <thead>
+              <tr>
+                  <th>M</th>
+                  <th>T</th>
+                  <th>W</th>
+                  <th>T</th>
+                  <th>F</th>
+                  <th>S</th>
+                  <th>S</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td class="past_future">30</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>6</td>
+              </tr>
+              <tr>
+                  <td>7</td>
+                  <td>8</td>
+                  <td>9</td>
+                  <td>10</td>
+                  <td>11</td>
+                  <td>12</td>
+                  <td>13</td>
+              </tr>
+              <tr>
+                  <td>14</td>
+                  <td>15</td>
+                  <td>16</td>
+                  <td>17</td>
+                  <td>18</td>
+                  <td>19</td>
+                  <td>20</td>
+              </tr>
+              <tr>
+                  <td>21</td>
+                  <td>22</td>
+                  <td>23</td>
+                  <td>24</td>
+                  <td class="calendar_day">25</td>
+                  <td>26</td>
+                  <td>27</td>
+              </tr>
+              <tr>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td class="past_future">1</td>
+                <td class="past_future">2</td>
+                <td class="past_future">3</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+
+      <a class="sprint_overview" href="/sprint_board">
+        <div class="random_card_2">
+          <p class="card_heading"><i class="bi bi-table"></i> Project Sprints Overview</p>
+        
+          <table class="table table-bordered" >
+            <thead class="thead-light">
+                <tr class="resize">
+                    <th scope="col">Sprint No</th>
+                    <th scope="col">Sprint Name</th>
+                    <th scope="col">Sprint Start</th>
+                    <th scope="col">Sprint End</th>
+                    <th scope="col">Sprint Status</th>
+                </tr>
+            </thead>
+            <tbody class="resize">
+              <% sprints.forEach(sprint => { %>
+                <tr>
+                    <td><%= sprint.sprint_no %></td>
+                    <td><%= sprint.sprint_name %></td>
+                    <td><%= sprint.sprint_start.toLocaleString() %></td>
+                    <td><%= sprint.sprint_end.toLocaleString() %></td>
+                    <td><%= sprint.sprint_status %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+        </div>
+      </a>
+  </div> 
+  </div>
+  </div>
+  </body>
+</html>

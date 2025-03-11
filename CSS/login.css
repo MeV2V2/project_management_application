@@ -1,0 +1,185 @@
+/* Navbar */
+.navbar {
+    background-color: transparent !important;
+    padding: 0.5rem 1rem;
+    position: fixed;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: rgb(0, 0, 0) !important;
+    font-size: 1rem;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #10bcdb !important;
+    text-shadow: 0 0 8px #045260, 0 0 10px #045260, 0 0 12px #045260;
+}
+
+/* Main container for authentication */
+.auth-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 100vh;
+    margin: 0;
+    background-color: #E9E3FF;
+
+}
+
+/* Container for the login image */
+.login-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+/* Styling the login image */
+.login-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card for login form */
+.card {
+    flex: 1;
+    width: 50%;
+    padding: 2rem;
+    background-color: transparent !important;
+    color: rgb(0, 0, 0) !important;
+    margin-left: 2rem;
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid;
+
+}
+
+.text-end {
+    text-align: end;
+}
+
+/* Card body container */
+.card-body {
+    width: 100%;
+    background-color: transparent !important;
+}
+
+/* Text and label colors */
+.card-title {
+    color: rgb(0, 0, 0) !important;
+    text-align: left;
+    font-size: 3rem;
+}
+
+.form-label {
+    color: rgb(0, 0, 0) !important;
+    text-align: left;
+    font-size: 1.25rem;
+}
+
+.card-body p {
+    color: rgb(0, 0, 0) !important;
+    text-align: left;
+    font-size: 0.9rem;
+    margin-bottom: 70px;
+}
+
+/* Accessibility */
+.login-slider{
+    text-align: center;
+}
+
+input[type="range"] {
+    background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #c68bf3;
+    border-radius: 25px;
+  }
+
+/* Styling for form input fields */
+.form-control {
+    background-color: transparent !important;
+    border: none;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    border-radius: 0;
+    color: rgb(0, 0, 0);
+    padding: 0.5rem 0;
+    margin-bottom: 3rem;
+    box-shadow: none;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+}
+
+/* Placeholder text styling */
+::placeholder {
+    color: rgba(66, 65, 65, 0.82) !important;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #c68bf3;
+    color: rgb(255, 255, 255);
+    border-width: 2px;
+    border-color: #c68bf3;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+}
+
+/* Error Message*/
+.error {
+    color: rgb(255, 63, 63);
+    background-color: rgb(255, 232, 232);
+    border: 2px solid rgb(245, 89, 89);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Hover effect for buttons */
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #c68bf3;
+}
+
+/* Styling for links */
+.text-light {
+    color: rgb(16, 188, 219) !important;
+}
+
+/* Margin top for form links */
+.mb-3 {
+    margin-top: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-container {
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .login-image-container {
+        display: none;
+    }
+
+    .card {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+}

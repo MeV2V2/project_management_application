@@ -1,0 +1,193 @@
+body {
+    background-color: #8A70D6; /* Violet (JTC) for the overall background */
+    color: #feffff; /* Platinum for text */   
+    margin-left: 210px;
+}
+
+.side_box_align{
+    display: flex; /* Use flexbox layout */
+    align-items: flex-end; /* Align items to the bottom */
+    height: 100vh; /* Full viewport height */
+  }
+
+  .welcome_box {
+    flex: 1; /* Allow the box to take the remaining space */
+    background-color: #fafafa; /*Light background color*/
+    padding: 20px; /* Inner padding */
+    border-radius: 20px 0 0 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Shadow effect */
+    margin-left: 60px;
+    width:auto;
+    height: 100vh;
+    top: 20px;
+    overflow-y: auto;
+}
+
+.empty_button{
+    background-color: #8A70D6;
+    height: 49.5px;
+}
+      
+ /* The sidebar menu */
+ .sidenav {
+    width: 250px; /* Set the width of the sidebar */
+    position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 30px;
+    border-radius: 15px; /* Curved edges */
+    margin-left: 10px; /* Adjust this value to move the sidebar to the right */
+    height: 100vh; /* Full viewport height */
+    }
+  
+    .logo_title{
+      font-size: 30pt; 
+      color: #f1f1f1; 
+      text-align: center; 
+      font-weight: bold; 
+      margin-bottom: 50px;
+    }
+  
+    /* The navigation menu links */
+    .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+    margin-bottom: 50px;
+    }
+  
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+    color: #5D1F93;
+    background-color: #e9e3ff;
+    border-radius: 5pt;
+    }
+
+.accessibility_label{
+    color: #f1f1f1;
+    text-align: center;
+    font-size: 25px;
+    }
+
+    .accessibility_ts_label{
+    color: #f1f1f1;
+    text-align: center;
+    font-size: 25px;
+    }
+
+.custom-slider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 250px; /* Adjust the width as needed */
+    height: 8px; /* Height of the track */
+    background:#E9E3FF; /* Background color of the track */
+    border-radius: 5px;
+    outline: none; /* Remove outline */
+}
+
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default thumb styling */
+    appearance: none;
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    border-radius: 50%; /* Make it round */
+    background: #5D1F93; /* Color of the thumb */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+}
+
+.small_font{
+    font-size: small;
+}
+
+.big_font{
+    font-size: large;
+    margin-left: 220px;
+}
+
+.heading_message{
+    color: #5D1F93;
+    text-align: left;
+    margin-top: 40px; 
+    font-size: 50pt;
+    margin-bottom: 20px;
+    }
+
+
+.button_style {
+    color: #8A70D6;
+    border-color: #8A70D6;
+    padding: 10px;
+    border-width: 1.5px;
+    width: 150px;
+    height:50px; 
+    text-align: center;
+    margin: 5px;
+}
+
+.button_style:hover {
+background-color: #E9E3FF;
+color: #8A70D6;
+}
+   
+.form-label{
+    color: #2E2E2E;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.form_instructions{
+    color: red; 
+    font-size: small;
+}
+
+.star{
+    color: red;
+    margin-left: 5px;
+}
+
+.form-group {
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; 
+}
+    .form-control {
+        background-color: #eeeeee; /* Mountbatten Pink for inputs (lightest color) */
+        color: #120111; /* Night for input text */
+        border-color: #25246d;
+        border-width: 1.5px;
+
+    }
+    .form-control::placeholder {
+        color: #463f52; /* Night placeholder text */ 
+    }
+    .form-control:focus {
+        background-color: #f1f1ff; /* French Gray for focused inputs */
+        color: #463f52; /* Night for input text on focus */
+        outline: none;  
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.9); /* Stronger drop shadow effect */
+    }
+    
+
+    
+    /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+
+    .button_style {
+        color: #8A70D6;
+        border-color: #8A70D6;
+        padding: 10px;
+        border-width: 1.5px;
+        width: 150px;
+        height:50px; 
+        text-align: center;
+        margin: 5px;
+    }
+    
+    .button_style:hover {
+    background-color: #E9E3FF;
+    color: #8A70D6;
+    }

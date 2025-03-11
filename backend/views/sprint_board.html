@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Board</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/sprint_board.css" />
+  </head>
+  
+<body>
+  <div class="side_box_align">
+    <div class="sidenav">
+      <p class="logo_title">Dex Studios</p>
+      <a href="/dashboard"> <i class="bi bi-grid"></i> Dashboard</a>
+      <a href="/product"> <i class="bi bi-list-columns-reverse"></i> Product Backlog</a>
+      <a href = "/sprint_board"> <i class="bi bi-card-heading"></i> Sprint Board</a>      
+      <p class="empty_button"></p> 
+      <hr>
+      <a href="/" > <i class="bi bi-box-arrow-left"></i> Logout</a>
+      <br><br>
+      
+      <div>
+          <h4 class="accessibility_ts_label">Change Text Size</h4>
+          <input type="range" min="10" max="50" id="slider" value="30" class="custom-slider" onchange="fontResize()">
+          <label class="small_font">A</label>
+          <label class="big_font">A</label>
+      </div>
+    </div>
+
+  <div class="welcome_box">
+    <h1 class="resize heading_message">Sprint Board</h1>
+
+      <!-- The dropdown sprint number selector -->
+      <div class="card_heading">
+        <label>Select Sprint Number:</label>
+        <select id="sprintSelector" name="sprint_no" class="sprint_dropdown_style resize" onchange="showBurndownButton()">
+          <option value="">All Sprints</option>
+          <% sprints.forEach(function(sprint) { %>
+          <option value="<%= sprint.sprint_no %>">
+            <%= sprint.sprint_no %>
+          </option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="sprint_actions">
+        <button class="btn button_style resize" onclick="loadAddSprint()"><i class="bi bi-plus"></i> Create New Sprint</button>
+        <button class="btn button_style resize" data-bs-toggle="tooltip" title="Save status change" onclick="saveTaskStatus()"><i class="bi bi-save"></i> Save Status</button>
+        <button class="btn button_style resize" data-toggle="modal" data-target="#editSprintModal" onclick="populateSprintModal()"><i class="bi bi-pencil-square"></i> Edit Sprint</button>
+        
+        <form id="burndownForm" action="/burndown" method="POST" style="display:none">
+          <input type="hidden" name="todoTasks" value='<%= JSON.stringify(todoTasks) %>'>
+          <input type="hidden" name="inProgressTasks" value='<%= JSON.stringify(inProgressTasks) %>'>
+          <input type="hidden" name="completedTasks" value='<%= JSON.stringify(completedTasks) %>'>
+          <input type="hidden" name="sprints" value='<%= JSON.stringify(sprints) %>'>
+          <input type="hidden" name="selectedSprint" id="selectedSprintInput" value="">
+          <button class="btn button_style" type="submit"><i class="bi bi-clipboard-data"></i> Reports</button>
+        </form>
+      </div>
+
+      <div class="row">
+        <div
+          class="column"
+          id="To Do"
+          ondrop="drop(event)"
+          ondragover="allowDrop(event)"
+        >
+          <h3 class="resize">To Do</h3>
+          <% todoTasks.forEach(task => { %>
+          <div
+            class="task-card resize"
+            id="<%= task.task_no %>"
+            draggable="true"
+            ondragstart="drag(event)"
+            onclick="openModal('<%= task.task_name %>', '<%= task.task_desc %>', '<%= task.sprint_no %>', '<%= task.task_date %>', '<%= task.task_status %>', '<%= task.task_priority %>')"
+          >
+            <p><strong><%= task.task_name %></strong></p>
+            <p><%= task.task_desc %></p>
+            <p>Sprint Number: <%= task.sprint_no %></p>
+          </div>
+          <% }) %>
+        </div>
+
+        <div
+          class="column"
+          id="In Progress"
+          ondrop="drop(event)"
+          ondragover="allowDrop(event)"
+        >
+          <h3 class="resize">In Progress</h3>
+          <% inProgressTasks.forEach(task => { %>
+          <div
+            class="task-card resize"
+            id="<%= task.task_no %>"
+            draggable="true"
+            ondragstart="drag(event)"
+            onclick="openModal('<%= task.task_name %>', '<%= task.task_desc %>', '<%= task.sprint_no %>', '<%= task.task_date %>', '<%= task.task_status %>', '<%= task.task_priority %>')"
+          >
+            <p><strong><%= task.task_name %></strong></p>
+            <p><%= task.task_desc %></p>
+            <p>Sprint Number: <%= task.sprint_no %></p>
+          </div>
+          <% }) %>
+        </div>
+
+        <div
+          class="column"
+          id="Completed"
+          ondrop="drop(event)"
+          ondragover="allowDrop(event)"
+        >
+          <h3 class="resize">Completed</h3>
+          <% completedTasks.forEach(task => { %>
+          <div
+            class="task-card resize"
+            id="<%= task.task_no %>"
+            draggable="true"
+            ondragstart="drag(event)"
+            onclick="openModal('<%= task.task_name %>', '<%= task.task_desc %>', '<%= task.sprint_no %>', '<%= task.task_date %>', '<%= task.task_status %>', '<%= task.task_priority %>')"
+          >
+            <p><strong><%= task.task_name %></strong></p>
+            <p><%= task.task_desc %></p>
+            <p>Sprint Number: <%= task.sprint_no %></p>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- The modal for task details -->
+      <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="taskModalLabel">Detailed Information</h5>
+            </div>
+            <div class="modal-body">
+              <h5 id="modalTaskName"></h5>
+              <p><strong>Description:</strong> <span id="modalTaskDesc"></span></p>
+              <p><strong>Sprint Number:</strong> <span id="modalSprintNo"></span></p>
+              <p><strong>Task Date:</strong> <span id="modalTaskDate"></span></p>
+              <p><strong>Status:</strong> <span id="modalTaskStatus"></span></p>
+              <p><strong>Priority:</strong> <span id="modalTaskPriority"></span></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn button_style" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+          <!-- Modal Edit Sprint -->
+    <div class="modal fade" id="editSprintModal" tabindex="-1" role="dialog" aria-labelledby="editSprintModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editSprintModalLabel">Edit Sprint</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editSprintForm">
+              <div class="form-group">
+                <label for="sprintNumber">Sprint Number:</label>
+                <input type="text" class="form-control" id="sprintNumber" name="sprint_no" readonly>
+              </div>
+              <div class="form-group">
+                <label for="sprintName">Sprint Name:</label>
+                <input type="text" class="form-control" id="sprintName" name="sprint_name">
+              </div>
+              <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" class="form-control" id="startDate" name="sprint_start">
+              </div>
+              <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" class="form-control" id="endDate" name="sprint_end">
+              </div>
+              <div class="form-group">
+                <label for="sprintGoal">Sprint Goal:</label>
+                <textarea class="form-control" id="sprintGoal" name="sprint_goal" rows="3"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="updateSprintBtn">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+  function showBurndownButton() {
+      var sprint_validity = document.getElementById("sprintSelector").value;
+      if (sprint_validity != '') {
+        document.getElementById("burndownForm").style.display = "block";
+      } else {
+        document.getElementById("burndownForm").style.display = "none";
+      }
+  }
+
+  let updatedTasks = [];
+
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    const taskId = ev.dataTransfer.getData("text");
+
+    // Checks if the element is a column or an element inside a column
+    if (!ev.target.classList.contains("column")) return;
+
+    const newStatus = ev.target.id;
+
+    let taskDate = null;
+    if (newStatus === "Completed") {
+      const currentDate = new Date();
+      taskDate = currentDate.toISOString().split('T')[0];
+    }
+
+    // Moves the card
+    const card = document.getElementById(taskId);
+    ev.target.appendChild(card);
+
+    // Saves the new status in the task list
+    const existingTaskIndex = updatedTasks.findIndex(
+      (task) => task.task_no === taskId
+    );
+
+    // If the task is already in the array, update its status; otherwise, push a new task
+    if (existingTaskIndex >= 0) {
+      updatedTasks[existingTaskIndex].task_status = newStatus;
+      if (taskDate) {
+          updatedTasks[existingTaskIndex].task_date = taskDate;
+      }
+    } else {
+      const taskUpdate = { task_no: taskId, task_status: newStatus };
+      if (taskDate) {
+        taskUpdate.task_date = taskDate;
+      }
+    updatedTasks.push(taskUpdate);
+    }
+
+    console.log("updatedTasks array:", updatedTasks);
+  }
+  
+  function loadAddSprint() {
+    window.location.href = "/sprints/add_sprint";
+  }
+
+  // Function to save the status of the task
+  function saveTaskStatus() {
+    console.log("Tasks that are trying to be saved:", updatedTasks);
+
+    fetch("/update_task_status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTasks), // Sends the updated tasks
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Successfully updated the new tasks");
+          updatedTasks = []; // Cleans the updated task
+          location.reload(); // Refresh the page
+        } else {
+          console.error("Error trying to update the tasks");
+        }
+      })
+      .catch((err) => console.error("Error:", err));
+  }
+
+  const collection = document.getElementsByClassName("resize");
+
+  function fontResize() {
+    var toSet = document.getElementById("slider").value + "px";
+    for (var i = 0; i < collection.length; i++) {
+      collection[i].style.fontSize =
+        document.getElementById("slider").value + "px";
+    }
+  }
+
+  // Event listener for sprint selection change
+  document.getElementById("sprintSelector").addEventListener("change", function () {
+    const selectedSprint = this.value;
+    document.getElementById("selectedSprintInput").value = selectedSprint;
+    console.log("Selected Sprint:", selectedSprint);
+
+    // Populate modal with selected sprint data
+    populateSprintModal();
+  });
+  // Function to populate the modal with sprint information
+  function populateSprintModal() {
+  const selectedSprint = document.getElementById("sprintSelector").value;
+
+  if (!selectedSprint) {
+    console.log("No sprint selected");
+    return;
+  }
+
+  const sprintData = sprints.find(sprint => sprint.sprint_no === selectedSprint);
+
+  if (!sprintData) {
+    console.log("Sprint not found");
+    return;
+  }
+
+  document.getElementById("sprintNumber").value = sprintData.sprint_no;
+  document.getElementById("sprintName").value = sprintData.sprint_name;
+  document.getElementById("startDate").value = sprintData.start_date;
+  document.getElementById("endDate").value = sprintData.end_date;
+  document.getElementById("sprintGoal").value = sprintData.sprint_goal;
+
+  }
+  document
+    .getElementById("sprintSelector")
+    .addEventListener("change", function () {
+      const selectedSprint = this.value;
+      const allTasks = document.querySelectorAll(".task-card");
+      document.getElementById("selectedSprintInput").value = selectedSprint;
+
+      allTasks.forEach((task) => {
+        const taskSprintNo = task
+          .querySelector("p:nth-child(3)")
+          .innerText.split(": ")[1];
+        if (selectedSprint === "" || taskSprintNo === selectedSprint) {
+          task.style.display = "block";
+        } else {
+          task.style.display = "none";
+        }
+      });
+    });
+    document.getElementById('updateSprintBtn').addEventListener('click', function() {
+    const sprintData = {
+      sprint_no: document.getElementById('sprintNumber').value,
+      sprint_name: document.getElementById('sprintName').value,
+      sprint_start: document.getElementById('startDate').value,
+      sprint_end: document.getElementById('endDate').value,
+      sprint_goal: document.getElementById('sprintGoal').value
+    };
+
+    fetch('/update_sprint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(sprintData)
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Sprint updated successfully');
+        location.reload();
+      } else {
+        console.error('Error updating sprint');
+      }
+    })
+    .catch(err => console.error('Error:', err));
+  });
+    ///
+  document.querySelectorAll(".task-card").forEach((task) => {
+    task.addEventListener("click", function () {
+      const taskName = this.querySelector("strong").innerText;
+      const taskDesc = this.querySelector("p:nth-child(2)").innerText;
+      const sprintNo =
+        this.querySelector("p:nth-child(3)").innerText.split(": ")[1];
+
+      // Fetch more task details from the server (optional)
+      fetch(`/tasks/details?id=${this.id}`)
+        .then((response) => response.json())
+        .then((taskDetails) => {
+          document.getElementById("modalTaskName").innerText =
+            taskDetails.task_name || taskName;
+          document.getElementById("modalTaskDesc").innerText =
+            taskDetails.task_desc || taskDesc;
+          document.getElementById("modalSprintNo").innerText =
+            taskDetails.sprint_no || sprintNo;
+          document.getElementById("modalTaskDate").innerText =
+            taskDetails.task_date || "N/A";
+          document.getElementById("modalTaskStatus").innerText =
+            taskDetails.task_status || "N/A";
+          document.getElementById("modalTaskPriority").innerText =
+            taskDetails.task_priority || "N/A";
+
+          // Show the modal
+          const taskModal = new bootstrap.Modal(
+            document.getElementById("taskModal")
+          );
+          console.log("Task modal initialized", taskModal);
+          taskModal.show();
+        })
+        .catch((err) => console.error("Error fetching task details:", err));
+    });
+  });
+  function openModal(taskNo, taskName, taskDesc, sprintNo, taskDate, taskStatus, taskPriority) {
+    // Set the content of the modal
+    document.getElementById('modalTaskName').innerText = taskName;
+    document.getElementById('modalTaskDesc').innerText = taskDesc;
+    document.getElementById('modalSprintNo').innerText = sprintNo;
+    document.getElementById('modalTaskDate').innerText = taskDate;
+    document.getElementById('modalTaskStatus').innerText = taskStatus;
+    document.getElementById('modalTaskPriority').innerText = taskPriority;
+
+    // Show the modal
+    $('#taskModal').modal('show');
+  }
+   /// SPRINT BOARD HERE: Add the logic for opening and displaying the sprint modal here.
+document.querySelectorAll('.edit-sprint-btn').forEach(button => {
+button.addEventListener('click', function () {
+  const sprintId = this.dataset.sprintId;
+
+  fetch(`/sprints/${sprintId}`)
+    .then(response => response.json())
+    .then(sprintDetails => {
+      document.getElementById('modalSprintId').value = sprintDetails.sprint_no;
+    document.getElementById('modalSprintName').value = sprintDetails.sprint_name;
+    document.getElementById('modalSprintStartDate').value = sprintDetails.start_date;
+    document.getElementById('modalSprintEndDate').value = sprintDetails.end_date;
+    document.getElementById('modalSprintGoal').value = sprintDetails.sprint_goal;
+
+    const sprintModal = new bootstrap.Modal(document.getElementById('sprintModal'));
+    sprintModal.show();
+    })
+    .catch(err => console.error('Error fetching sprint details:', err));
+});
+});
+/// SPRINT BOARD HERE: Add the logic for opening and displaying the sprint modal here.
+function updateSprint() {
+const sprintId = document.getElementById('modalSprintId').value;
+const sprintName = document.getElementById('modalSprintName').value;
+const startDate = document.getElementById('modalSprintStartDate').value;
+const endDate = document.getElementById('modalSprintEndDate').value;
+const sprintGoal = document.getElementById('modalSprintGoal').value;
+
+fetch(`/sprints/update/${sprintId}`, {
+method: 'POST',
+headers: {
+  'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+  sprint_name: sprintName,
+  start_date: startDate,
+  end_date: endDate,
+  sprint_goal: sprintGoal,
+}),
+})
+.then(response => {
+  if (response.ok) {
+    console.log('Sprint updated successfully');
+    location.reload(); // Refrescar la página para ver los cambios
+  } else {
+    console.error('Error updating sprint');
+  }
+})
+.catch(err => console.error('Error:', err));
+}
+
+// Trigger the update function when the "Update" button is clicked
+document.getElementById('modalUpdateSprintButton').addEventListener('click', updateSprint);
+</script>
+</body> 
