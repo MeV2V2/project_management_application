@@ -15,7 +15,7 @@ express
 bootstrap
 ejs
 
-Developed by:
+Developed by:\
 Andrique Huang\
 MeV2V2\
 Shaun Wong\
