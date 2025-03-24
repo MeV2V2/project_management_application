@@ -16,9 +16,9 @@ bootstrap
 ejs
 
 Developed by:
-Andrique Huang
-MeV2V2
-Shaun Wong
-glee0039
-Bernice Seto
+Andrique Huang\
+MeV2V2\
+Shaun Wong\
+glee0039\
+Bernice Seto\
 melissaesalazarc
